@@ -8,6 +8,7 @@ import { useHistory } from "react-router";
 const ArticlePage = ({ articleId }) => {
     const dispatch = useDispatch();
     const ArticleById = useSelector(getArticlesByIds(articleId));
+
     console.log(articleId, ArticleById);
 
     useEffect(()=>{

@@ -116,7 +116,7 @@ export const getArticlesByIds = (artId) => (state) => {
         return state.articles.entities.find(
             (a) => String(a._id) === String(artId)
         );
-    } else return null;
+    };
 };
 
 export default articlesReducer;
