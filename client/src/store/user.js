@@ -74,7 +74,6 @@ export const loadUser = () => async (dispatch) => {
     try {
         const { content } = await userService.getCurrentUser();
         dispatch(userReceved(content));
-        console.log(content);
     } catch (error) {
         dispatch(userRequestFiled(error.message));
     }

@@ -1,14 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { getArticlesByIds } from "../../store/articles";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Box, Typography, LinearProgress, Button } from "@mui/material";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router";
 
 const ArticlePage = ({ articleId }) => {
+    const dispatch = useDispatch();
     const ArticleById = useSelector(getArticlesByIds(articleId));
     console.log(articleId, ArticleById);
 
+    useEffect(()=>{
+        dispatch(getArticlesByIds(articleId));
+    }, [])
     const handleClick = () => {
         history.push(history.location.pathname + "/edit");
     };

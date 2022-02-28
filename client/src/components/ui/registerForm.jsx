@@ -72,7 +72,6 @@ const RegisterForm = () => {
             ...data
         };
         dispatch(signUp(newData));
-        console.log(newData);
     };
 
     return (

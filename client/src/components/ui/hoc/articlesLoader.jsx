@@ -14,8 +14,6 @@ const ArticlesLoader = ({ children }) => {
         if (!dataStatus) dispatch(loadArticlesList());
     }, []);
 
-    console.log(dataStatus);
-
     // if (!dataStatus) return "Loading";
 
     return children;
