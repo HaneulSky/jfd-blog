@@ -14,6 +14,9 @@ const schema = new Schema(
             type: String,
             required: true,
         },
+        urlImage: {
+            type: String
+        },
         link: {
             type: String,
         },

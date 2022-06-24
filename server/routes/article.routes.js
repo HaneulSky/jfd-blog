@@ -16,7 +16,7 @@ router
         }
     })
     .post(auth, async (req, res) => {
-        // console.log(req.user);
+         console.log(req.files);
         try {
             const newArticle = await Article.create({
                 ...req.body,
@@ -36,6 +36,7 @@ router
     .patch(async (req, res) => {
         try {
             const {articleId} = req.params;
+            console.log(articleId)
 
             if (articleId) {
                 const updatedArticle = await Article.findByIdAndUpdate(articleId, req.body, {new: true});

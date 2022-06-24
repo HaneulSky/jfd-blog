@@ -1,49 +1,70 @@
-import React from "react";
-import { getArticlesByIds } from "../../store/articles";
+import React, { useEffect } from "react";
+import { getArticlesByIds, loadArticlesList } from "../../store/articles";
 import { getCurrentUserData } from "../../store/user";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Box, Typography, LinearProgress, Button } from "@mui/material";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import ImageCard from "../common/imageCard";
 
 const ArticlePage = ({ articleId }) => {
+    const dispatch = useDispatch();
     const ArticleById = useSelector(getArticlesByIds(articleId));
     const currentUser = useSelector(getCurrentUserData());
+
+    useEffect(() => {
+        dispatch(loadArticlesList());
+    }, []);
 
     if (ArticleById) {
         return (
             <Box
                 elevation={3}
                 sx={{
-                    width: 70 + "%",
+                    display: "flex",
+                    width: 80 + "%",
                     mx: "auto",
-                    mt: 5
+                    mt: 5,
+                    mb: 5
                 }}
             >
-                {currentUser._id.toString() ===
-                    ArticleById.userId.toString() && (
-                    <Link to={`/articles/${articleId}/edit`}>
-                        <Button variant="contained">Редактировать</Button>
-                    </Link>
-                )}
-                <Typography
-                    sx={{ mt: 3 }}
-                    variant="h2"
-                    gutterBottom
-                    component="div"
-                >
-                    {ArticleById.title}
-                </Typography>
-                <Typography sx={{ my: 5 }} variant="body1" gutterBottom>
-                    {ArticleById.content}
-                </Typography>
-                <Button
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    href={ArticleById.link}
-                    variant="outlined"
-                >
-                    Источник
-                </Button>
+                <ImageCard
+                    image={ArticleById.urlImage}
+                    articleTitle={ArticleById.title}
+                ></ImageCard>
+                <div style={{ width: 60 + "%", marginLeft: 40 }}>
+                    {currentUser._id.toString() ===
+                        ArticleById.userId.toString() && (
+                        <Link to={`/articles/${articleId}/edit`}>
+                            <Button variant="contained">Редактировать</Button>
+                        </Link>
+                    )}
+                    <Typography
+                        sx={{ mt: 3 }}
+                        variant="h2"
+                        gutterBottom
+                        component="div"
+                    >
+                        {ArticleById.title}
+                    </Typography>
+
+                    <Typography
+                        sx={{ my: 5, whiteSpace: "pre-line" }}
+                        variant="body1"
+                        gutterBottom
+                    >
+                        {ArticleById.content}
+                    </Typography>
+                    {ArticleById.link ? (
+                        <Button
+                            style={{ textDecoration: "none", color: "inherit" }}
+                            href={ArticleById.link}
+                            variant="outlined"
+                        >
+                            Источник
+                        </Button>
+                    ) : null}
+                </div>
             </Box>
         );
     } else {

@@ -1,15 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import { CardActionArea, CardActions } from "@mui/material";
-import { blue } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getArticlesByIds } from "../../store/articles";
-
-const backColor = blue[50];
 
 const Article = ({ _id }) => {
     const ArticlesById = useSelector(getArticlesByIds(_id));
@@ -18,34 +11,19 @@ const Article = ({ _id }) => {
         : "Loading...";
 
     return (
-        <Card
-            sx={{
-                width: 345,
-                height: 220,
-                bgcolor: backColor,
-                marginBottom: 5
-            }}
-        >
-            <CardActionArea>
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        {ArticlesById.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {cutContent}
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
+        <div className="card" style={{ width: 18 + "rem" }}>
+            <div className="card-body">
+                <h5 className="card-title">{ArticlesById.title}</h5>
+                <p className="card-text">{cutContent}</p>
                 <Link
                     size="small"
-                    color="primary"
+                    className="btn btn-primary"
                     to={`/articles/${ArticlesById._id}`}
                 >
                     Открыть
                 </Link>
-            </CardActions>
-        </Card>
+            </div>
+        </div>
     );
 };
 

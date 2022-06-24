@@ -1,27 +1,27 @@
-import React from "react";
+import React, { createRef } from "react";
 import PropTypes from "prop-types";
 
 const TextAreaField = ({ error, name, value, onChange, label }) => {
+    const myRef = createRef();
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
     };
     const getInputClasses = () => {
         return "form-control" + (error ? " is-invalid" : "");
     };
+
     return (
-        <div className="mb-4">
-            <label htmlFor={name}>{label}</label>
-            <div className="input-group has-validation">
-                <textarea
-                    id={name}
-                    value={value}
-                    onChange={handleChange}
-                    name={name}
-                    className={getInputClasses()}
-                    rows="5"
-                />
-                {error && <div className="invalid-feedback">{error}</div>}
-            </div>
+        <div className=" mb-4input-group has-validation">
+            <textarea
+                id={name}
+                value={value}
+                onChange={handleChange}
+                name={name}
+                ref={myRef}
+                className={getInputClasses()}
+                rows="5"
+            />
+            {error && <div className="invalid-feedback">{error}</div>}
         </div>
     );
 };

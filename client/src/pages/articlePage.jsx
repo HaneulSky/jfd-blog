@@ -1,19 +1,18 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { getArticlesByIds } from "../../store/articles";
 import { useSelector, useDispatch } from "react-redux";
 import { Box, Typography, LinearProgress, Button } from "@mui/material";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router";
+import ImageGallery from "../components/common/imageGallery";
 
 const ArticlePage = ({ articleId }) => {
     const dispatch = useDispatch();
     const ArticleById = useSelector(getArticlesByIds(articleId));
 
-    console.log(articleId, ArticleById);
-
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getArticlesByIds(articleId));
-    }, [])
+    }, []);
     const handleClick = () => {
         history.push(history.location.pathname + "/edit");
     };
@@ -44,13 +43,14 @@ const ArticlePage = ({ articleId }) => {
                 <Typography sx={{ my: 5 }} variant="body1" gutterBottom>
                     {ArticleById.content}
                 </Typography>
-                <Button
-                    style={{ textDecoration: "none", color: "inherit" }}
+                <ImageGallery images = {ArticleById.images} />
+                { ArticleById.link ? <Button
+                    style={{textDecoration: "none", color: "inherit"}}
                     href={ArticleById.link}
                     variant="outlined"
                 >
                     Источник
-                </Button>
+                </Button> : null }
             </Box>
         );
     } else {

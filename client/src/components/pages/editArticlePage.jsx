@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getArticlesByIds, updateArticle } from "../../store/articles";
+import {
+    getArticlesByIds,
+    loadArticlesList,
+    updateArticle
+} from "../../store/articles";
 import { validator } from "../../utils/validator";
 import TextField from "../common/textField";
 import TextAreaField from "../common/textAreaField";
 import { Box, LinearProgress, Button } from "@mui/material";
 
 const EditArticlePage = () => {
-    const dispatch = useDispatch();
     const [data, setData] = useState([]);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(loadArticlesList());
+        setData({
+            ...ArticleById
+        });
+    }, []);
+
     const params = useParams();
     const { articleId } = params;
     const ArticleById = useSelector(getArticlesByIds(articleId));
-
     const [errors, setErrors] = useState({});
 
     const handleSubmit = (e) => {
@@ -26,12 +36,6 @@ const EditArticlePage = () => {
             })
         );
     };
-
-    useEffect(() => {
-        setData({
-            ...ArticleById
-        });
-    }, []);
 
     const validatorConfig = {
         title: {
@@ -119,6 +123,15 @@ const EditArticlePage = () => {
                             value={data.content}
                             onChange={handleChange}
                             error={errors.content}
+                            variant="standard"
+                            sx={{ width: 450 }}
+                        />
+                        <TextField
+                            label="Ссылка"
+                            type="text"
+                            name="urlImage"
+                            value={data.urlImage}
+                            onChange={handleChange}
                             variant="standard"
                             sx={{ width: 450 }}
                         />

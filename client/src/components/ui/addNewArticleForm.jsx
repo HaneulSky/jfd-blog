@@ -37,6 +37,16 @@ const AddNewArticleForm = () => {
             isRequired: {
                 message: "Текст статьи обязателен для заполнения"
             }
+        },
+        urlImage: {
+            isLink: {
+                message: "Проверьте правильность написания ссылки"
+            }
+        },
+        link: {
+            isLink: {
+                message: "Проверьте правильность написания ссылки"
+            }
         }
     };
 
@@ -68,6 +78,7 @@ const AddNewArticleForm = () => {
         console.log(newData);
         clearForm();
     };
+
     return (
         <>
             <Box
@@ -87,7 +98,7 @@ const AddNewArticleForm = () => {
                 }}
             >
                 <h1>Добавление новой статьи</h1>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <TextField
                         label="Заголовок"
                         type="text"
@@ -119,10 +130,21 @@ const AddNewArticleForm = () => {
                         sx={{ width: 450 }}
                     />
                     <TextField
-                        label="Ссылка"
+                        label="Вставте ссылку на изображение"
+                        type="url"
+                        name="urlImage"
+                        value={data.urlImage}
+                        error={errors.urlImage}
+                        onChange={handleChange}
+                        variant="standard"
+                        sx={{ width: 450 }}
+                    />
+                    <TextField
+                        label="Ссылка на источник"
                         type="text"
                         name="link"
                         value={data.link}
+                        error={errors.link}
                         onChange={handleChange}
                         variant="standard"
                         sx={{ width: 450 }}

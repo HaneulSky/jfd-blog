@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Article from "../ui/article";
-import Grid from "@mui/material/Grid";
+// import Grid from "@mui/material/Grid";
 import { useSelector, useDispatch } from "react-redux";
 import { getArticles, loadArticlesList } from "../../store/articles";
 import { LinearProgress } from "@mui/material";
@@ -30,20 +30,15 @@ const ArticlesListPage = () => {
 
     return (
         <>
-            <Grid
-                container
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="baseline"
-                sx={{ mx: 3, my: 3 }}
+            <div
+                className="d-flex justify-content-evenly flex-wrap"
+                style={{ marginTop: 15, marginBottom: 15 }}
             >
                 {articles &&
                     articlesCrop.map((article) => (
-                        <Grid key={article._id} item xs>
-                            <Article key={article._id} {...article} />
-                        </Grid>
+                        <Article key={article._id} {...article} />
                     ))}
-            </Grid>
+            </div>
             <PaginationProvider>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     {articles && (

@@ -37,7 +37,12 @@ export function validator(data, config) {
             case "max":
                 statusValidate = data.length > config.value;
                 break;
-
+            case "isLink":
+            {
+                const isLink = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!]))?/;
+                statusValidate = !isLink.test(data);
+            }
+                break;
             default:
                 break;
         }

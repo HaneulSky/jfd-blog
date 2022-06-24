@@ -22,10 +22,11 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
                 <input
                     type={showPassword ? "text" : type}
                     id={name}
-                    value={value}
+                    value={value || ""}
                     onChange={handleChange}
                     name={name}
                     className={getInputClasses()}
+                    multiple
                 />
                 {type === "password" && (
                     <button
